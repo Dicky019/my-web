@@ -44,7 +44,7 @@ const S = {
 let f = 1;
 const F = {
 	PART_BOUNDARY: f,
-	LAST_BOUNDARY: f *= 2
+	LAST_BOUNDARY: (f *= 2)
 };
 
 const LF = 10;
@@ -55,7 +55,7 @@ const COLON = 58;
 const A = 97;
 const Z = 122;
 
-const lower = c => c | 0x20;
+const lower = (c) => c | 0x20;
 
 const noop = () => {};
 
@@ -96,18 +96,18 @@ class MultipartParser {
 		let i = 0;
 		const length_ = data.length;
 		let previousIndex = this.index;
-		let {lookbehind, boundary, boundaryChars, index, state, flags} = this;
+		let { lookbehind, boundary, boundaryChars, index, state, flags } = this;
 		const boundaryLength = this.boundary.length;
 		const boundaryEnd = boundaryLength - 1;
 		const bufferLength = data.length;
 		let c;
 		let cl;
 
-		const mark = name => {
+		const mark = (name) => {
 			this[name + 'Mark'] = i;
 		};
 
-		const clear = name => {
+		const clear = (name) => {
 			delete this[name + 'Mark'];
 		};
 
@@ -174,7 +174,7 @@ class MultipartParser {
 					state = S.HEADER_FIELD;
 					mark('onHeaderField');
 					index = 0;
-					// falls through
+				// falls through
 				case S.HEADER_FIELD:
 					if (c === CR) {
 						clear('onHeaderField');
@@ -211,7 +211,7 @@ class MultipartParser {
 
 					mark('onHeaderValue');
 					state = S.HEADER_VALUE;
-					// falls through
+				// falls through
 				case S.HEADER_VALUE:
 					if (c === CR) {
 						dataCallback('onHeaderValue', true);
@@ -238,7 +238,7 @@ class MultipartParser {
 				case S.PART_DATA_START:
 					state = S.PART_DATA;
 					mark('onPartData');
-					// falls through
+				// falls through
 				case S.PART_DATA:
 					previousIndex = index;
 
@@ -305,7 +305,11 @@ class MultipartParser {
 					} else if (previousIndex > 0) {
 						// if our boundary turned out to be rubbish, the captured lookbehind
 						// belongs to partData
-						const _lookbehind = new Uint8Array(lookbehind.buffer, lookbehind.byteOffset, lookbehind.byteLength);
+						const _lookbehind = new Uint8Array(
+							lookbehind.buffer,
+							lookbehind.byteOffset,
+							lookbehind.byteLength
+						);
 						callback('onPartData', 0, previousIndex, _lookbehind);
 						previousIndex = 0;
 						mark('onPartData');
@@ -334,8 +338,10 @@ class MultipartParser {
 	}
 
 	end() {
-		if ((this.state === S.HEADER_FIELD_START && this.index === 0) ||
-			(this.state === S.PART_DATA && this.index === this.boundary.length)) {
+		if (
+			(this.state === S.HEADER_FIELD_START && this.index === 0) ||
+			(this.state === S.PART_DATA && this.index === this.boundary.length)
+		) {
 			this.onPartEnd();
 		} else if (this.state !== S.END) {
 			throw new Error('MultipartParser.end(): stream ended unexpectedly');
@@ -381,16 +387,16 @@ async function toFormData(Body, ct) {
 	const entryChunks = [];
 	const formData = new shims.FormData();
 
-	const onPartData = ui8a => {
-		entryValue += decoder.decode(ui8a, {stream: true});
+	const onPartData = (ui8a) => {
+		entryValue += decoder.decode(ui8a, { stream: true });
 	};
 
-	const appendToFile = ui8a => {
+	const appendToFile = (ui8a) => {
 		entryChunks.push(ui8a);
 	};
 
 	const appendFileToFormData = () => {
-		const file = new shims.File(entryChunks, filename, {type: contentType});
+		const file = new shims.File(entryChunks, filename, { type: contentType });
 		formData.append(entryName, file);
 	};
 
@@ -415,11 +421,11 @@ async function toFormData(Body, ct) {
 	};
 
 	parser.onHeaderField = function (ui8a) {
-		headerField += decoder.decode(ui8a, {stream: true});
+		headerField += decoder.decode(ui8a, { stream: true });
 	};
 
 	parser.onHeaderValue = function (ui8a) {
-		headerValue += decoder.decode(ui8a, {stream: true});
+		headerValue += decoder.decode(ui8a, { stream: true });
 	};
 
 	parser.onHeaderEnd = function () {
