@@ -3,10 +3,10 @@
 	import Header from '../components/Header.svelte';
 </script>
 
-<header>
+<head>
 	<title>Home</title>
 	<meta name="description" content="My Index ">
-</header>
+</head>
 
 <Header />
 <Home />
