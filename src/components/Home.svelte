@@ -15,7 +15,7 @@
 	<div class="md:flex-1 md:ml-8 md:mt-0 mt-6 ">
 		<img
 			class="rounded-sm w-[100%] h-96 md:h-[550px] object-cover"
-			src="image 1.jpg"
+			src="image 1.jpeg"
 			alt="Gambar Orang"
 		/>
 	</div>
