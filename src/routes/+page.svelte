@@ -5,6 +5,7 @@
 
 <header>
 	<title>Home</title>
+	<meta name="description" content="My Index ">
 </header>
 
 <Header />
