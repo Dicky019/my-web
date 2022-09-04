@@ -14,10 +14,10 @@
 	</a>
 	<div class="flex sm:gap-x-8 gap-x-5">
 		<a
-			class="font-bold hover:text-black text-lg md:text-xl text-gray-500 {path == '/about'
+			class="font-bold hover:text-black text-lg md:text-xl text-gray-500 {path == '/'
 				? 'text-black'
 				: ''} "
-			href="/about">About</a
+			href="/">Home</a
 		>
 		<a
 			class="font-bold hover:text-black text-lg md:text-xl text-gray-500 {path == '/portofolio'

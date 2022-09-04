@@ -1,5 +1,6 @@
 <script>
-	import Card from '../../components/Card.svelte';
+	import Card from './../../components/Card.svelte';
+	import { getData } from '../../stores/dummy';
 </script>
 
 <head>
@@ -8,7 +9,6 @@
 </head>
 
 <div class="py-4" />
-<Card />
-<Card />
-<Card />
-<Card isLast={true} />
+{#each getData as data, i}
+	<Card {data} isLast={i == getData.length - 1} />
+{/each}
