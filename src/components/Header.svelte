@@ -7,7 +7,11 @@
 </script>
 
 <header class="flex justify-between sm:my-5 my-3">
-	<a class="font-bold text-lg md:text-xl" href="/">Dicky</a>
+	<!-- class="font-bold text-lg md:text-xl"  -->
+	<a href="/">
+		<!-- Dicky -->
+		<img src="logo.svg" alt="kosong" width="30px" />
+	</a>
 	<div class="flex sm:gap-x-8 gap-x-5">
 		<a
 			class="font-bold hover:text-black text-lg md:text-xl text-gray-500 {path == '/about'

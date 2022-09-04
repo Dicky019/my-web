@@ -1,4 +1,5 @@
 import { url } from '../../stores/utils';
+
 export const prerender = true;
 
 /** @type {import('./$types').PageLoad} */
